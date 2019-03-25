@@ -39,7 +39,7 @@ class PhraseAnalyserController
                 .'<li><a href="' . $this->getIndexUrl() . '">Index</a></li>'
                 .'<form>'
                     .'<label>Input Phrase: <input name="phrase" type="text"'
-                        .' value="' . $this->getPhrase() . '"></label>'
+                        .' value="' . $this->getPhrase() . '" maxlength="255"></label>'
                     .'<button type="submit">Go!</button>'
                 .'</form>'
                 . $this->getStatisticsMarkup()
@@ -95,6 +95,11 @@ class PhraseAnalyserController
 
     private function getPhrase() : ?string
     {
-        return $this->request->get(self::PHRASE, null);
+        $phrase = $this->request->get(self::PHRASE, null);
+        if (strlen($phrase) > 255) {
+            throw new \UnexpectedValueException("Phrase is too long");
+        }
+
+        return $phrase;
     }
 }

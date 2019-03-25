@@ -16,6 +16,7 @@ class CharSiblings implements ProviderInterface
                     $siblings[$char]['before'] = [];
                 }
                 $siblings[$char]['before'][] = $allChars[$index - 1];
+                $siblings[$char]['before'] = array_unique($siblings[$char]['before']);
             }
 
             if ($index < strlen($phrase) -1) {
@@ -23,6 +24,7 @@ class CharSiblings implements ProviderInterface
                     $siblings[$char]['after'] = [];
                 }
                 $siblings[$char]['after'][] = $allChars[$index + 1];
+                $siblings[$char]['after'] = array_unique($siblings[$char]['after']);
             }
         }
 
