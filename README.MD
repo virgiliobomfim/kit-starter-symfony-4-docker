@@ -33,3 +33,18 @@ It was as simple as `git clone`, `docker-compose build` and `docker-compose up -
 
 Run from the project root `docker-compose build`, `docker-compose up -d` and 
 browse to http://localhost
+
+Use the corresponding links for the Poker Chance Calculator and Phrase Analyser
+tests.
+
+### Poker Chance Calculator
+
+Once you clicked this link you'll be presented a list with 52 cards. Pick one
+and you'll start drwaing cards immediately. Click on the *Draw card* link to 
+keep going through the deck.
+
+Once you draw the expected card, you can restart the calculator, picking a new
+card from a new deck.
+
+## Phrase Analyser Test
+
