@@ -1,3 +1,12 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+poker_chance_calculator:
+    path: /poker-chance-calculator
+    controller: App\Controller\PokerChanceCalculatorController::index
+poker_chance_calculator_card_picker:
+    path: /poker-chance-calculator/card-picker
+    controller: App\Controller\PokerChanceCalculatorController::cardPicker
+phrase_analyser:
+    path: /phrase-analyser
+    controller: App\Controller\PhraseAnalyserController::index

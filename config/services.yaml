@@ -10,9 +10,6 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        public: false       # Allows optimizing the container by removing unused services; this also means
-                            # fetching services directly from the container via $container->get() won't work.
-                            # The best practice is to be explicit about your dependencies anyway.
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -28,3 +25,54 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\PokerChanceCalculator\Deck\Provider:
+        arguments:
+            - '@App\PokerChanceCalculator\Deck\Source\Session'
+            - '@App\PokerChanceCalculator\Deck\Source\Untouched'
+    App\PokerChanceCalculator\Manager:
+        arguments:
+            $deckProvider: '@App\PokerChanceCalculator\Deck\Provider'
+    App\PokerChanceCalculator\Deck\Source\Untouched:
+        arguments:
+            $suits:
+                - '@App\PokerChanceCalculator\Suit\Clubs'
+                - '@App\PokerChanceCalculator\Suit\Diamonds'
+                - '@App\PokerChanceCalculator\Suit\Hearts'
+                - '@App\PokerChanceCalculator\Suit\Spades'
+            $ranks:
+                - '@App\PokerChanceCalculator\Rank\Ace'
+                - '@App\PokerChanceCalculator\Rank\Two'
+                - '@App\PokerChanceCalculator\Rank\Three'
+                - '@App\PokerChanceCalculator\Rank\Four'
+                - '@App\PokerChanceCalculator\Rank\Five'
+                - '@App\PokerChanceCalculator\Rank\Six'
+                - '@App\PokerChanceCalculator\Rank\Seven'
+                - '@App\PokerChanceCalculator\Rank\Eight'
+                - '@App\PokerChanceCalculator\Rank\Nine'
+                - '@App\PokerChanceCalculator\Rank\Ten'
+                - '@App\PokerChanceCalculator\Rank\Joker'
+                - '@App\PokerChanceCalculator\Rank\Queen'
+                - '@App\PokerChanceCalculator\Rank\King'
+    App\PokerChanceCalculator\Rank\Builder:
+        arguments:
+            $availableRanks:
+                !php/const App\PokerChanceCalculator\RankInterface::ACE: '@App\PokerChanceCalculator\Rank\Ace'
+                !php/const App\PokerChanceCalculator\RankInterface::TWO: '@App\PokerChanceCalculator\Rank\Two'
+                !php/const App\PokerChanceCalculator\RankInterface::THREE: '@App\PokerChanceCalculator\Rank\Three'
+                !php/const App\PokerChanceCalculator\RankInterface::FOUR: '@App\PokerChanceCalculator\Rank\Four'
+                !php/const App\PokerChanceCalculator\RankInterface::FIVE: '@App\PokerChanceCalculator\Rank\Five'
+                !php/const App\PokerChanceCalculator\RankInterface::SIX: '@App\PokerChanceCalculator\Rank\Six'
+                !php/const App\PokerChanceCalculator\RankInterface::SEVEN: '@App\PokerChanceCalculator\Rank\Seven'
+                !php/const App\PokerChanceCalculator\RankInterface::EIGHT: '@App\PokerChanceCalculator\Rank\Eight'
+                !php/const App\PokerChanceCalculator\RankInterface::NINE: '@App\PokerChanceCalculator\Rank\Nine'
+                !php/const App\PokerChanceCalculator\RankInterface::TEN: '@App\PokerChanceCalculator\Rank\Ten'
+                !php/const App\PokerChanceCalculator\RankInterface::JOKER: '@App\PokerChanceCalculator\Rank\Joker'
+                !php/const App\PokerChanceCalculator\RankInterface::QUEEN: '@App\PokerChanceCalculator\Rank\Queen'
+                !php/const App\PokerChanceCalculator\RankInterface::KING: '@App\PokerChanceCalculator\Rank\King'
+    App\PokerChanceCalculator\Suit\Builder:
+        arguments:
+            $availableSuits:
+                !php/const App\PokerChanceCalculator\SuitInterface::CLUBS: '@App\PokerChanceCalculator\Suit\Clubs'
+                !php/const App\PokerChanceCalculator\SuitInterface::DIAMONDS: '@App\PokerChanceCalculator\Suit\Diamonds'
+                !php/const App\PokerChanceCalculator\SuitInterface::HEARTS: '@App\PokerChanceCalculator\Suit\Hearts'
+                !php/const App\PokerChanceCalculator\SuitInterface::SPADES: '@App\PokerChanceCalculator\Suit\Spades'
