@@ -8,6 +8,6 @@ class Jack implements RankInterface
 {
     public function __toString()
     {
-        return RankInterface::JOKER;
+        return RankInterface::JACK;
     }
 }
