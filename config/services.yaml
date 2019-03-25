@@ -83,4 +83,7 @@ services:
             - '@App\PhraseAnalyser\Statistics\MaxDistanceBetweenChars'
     App\PhraseAnalyser\Manager:
         arguments:
-            $statisticsProvider: '@App\PhraseAnalyser\Statistics\Provider'
+            $statisticsProvider: '@App\PhraseAnalyser\Statistics\Graph\Decorator'
+    App\PhraseAnalyser\Statistics\Graph\Decorator:
+        arguments:
+            $provider: '@App\PhraseAnalyser\Statistics\Provider'

@@ -18,7 +18,7 @@ class MaxDistanceBetweenChars implements ProviderInterface
             $distance = $lastOccurrence - $firstOccurrence;
 
             if ($distance > 0) {
-                $maxDistances[$char] = ['max_distance' => $distance];
+                $maxDistances[$char] = [ProviderInterface::MAX_DISTANCE => $distance];
             }
         }
 

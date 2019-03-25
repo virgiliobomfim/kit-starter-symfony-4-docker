@@ -4,8 +4,6 @@ namespace App\PhraseAnalyser\Statistics;
 
 class CharSiblings implements ProviderInterface
 {
-    const BEFORE = 'before';
-    const AFTER = 'after';
     /**
      * @var array
      */
@@ -21,13 +19,15 @@ class CharSiblings implements ProviderInterface
             $previousSibling = $this->getPreviousSibling($index, $allChars);
 
             if ($previousSibling != null) {
-                $this->addSibling($char, $previousSibling, self::BEFORE);
+                $this->addSibling($char, $previousSibling, // sibling is before
+                                                    ProviderInterface::BEFORE);
             }
 
             $nextSibling = $this->getNextSibling($index, $allChars);
 
             if ($nextSibling != null) {
-                $this->addSibling($char, $nextSibling, self::AFTER);
+                $this->addSibling($char, $nextSibling, // sibling is after
+                                                     ProviderInterface::AFTER);
             }
         }
 
@@ -71,7 +71,7 @@ class CharSiblings implements ProviderInterface
             $this->siblings[$char][$beforeOrAfter] = [];
         }
 
-        if (!isset($this->siblings[$char][$beforeOrAfter][$sibling])) {
+        if (!in_array($sibling, $this->siblings[$char][$beforeOrAfter])) {
             $this->siblings[$char][$beforeOrAfter][] = $sibling;
         }
     }

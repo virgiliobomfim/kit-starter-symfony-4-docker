@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Test\PhraseAnalyser;
+namespace App\Tests\PhraseAnalyser;
 
 use App\PhraseAnalyser\Manager;
 use App\PhraseAnalyser\Statistics\ProviderInterface as StatisticsProviderInterface;

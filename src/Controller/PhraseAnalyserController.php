@@ -36,10 +36,11 @@ class PhraseAnalyserController
 
         return new Response(
             '<html><body><ul>'
-                .'<li><a href="' . $this->getIndexUrl() . '">Index</a></li>'
+                .'<li><a href="' . $this->getIndexUrl() . '">Index</a></li></ul>'
                 .'<form>'
                     .'<label>Input Phrase: <input name="phrase" type="text"'
-                        .' value="' . $this->getPhrase() . '" maxlength="255"></label>'
+                        .' value="' . $this->getPhrase() . '" maxlength="255">'
+                        .'</label>'
                     .'<button type="submit">Go!</button>'
                 .'</form>'
                 . $this->getStatisticsMarkup()
@@ -49,27 +50,11 @@ class PhraseAnalyserController
 
     private function getStatisticsMarkup() : string
     {
-        $statistics = $this->getStatistics();
-        $markup = '';
-        foreach ($this->getStatistics() as $char => $statistics) {
-            $before = null;
-            if (isset($statistics['before'])) {
-                $before = ' before: ' . implode(", ", $statistics['before']);
-            }
-            $after = null;
-            if (isset($statistics['after'])) {
-                $after = ' after: ' . implode(", ", $statistics['after']);
-            }
-            $maxDistance = null;
-            if (isset($statistics['max_distance'])) {
-                $maxDistance = ' max-distance: ' . $statistics['max_distance'];
-            }
-            $markup.= $char . ': ' . $statistics['occurrences']
-                . $before
-                . $after
-                . $maxDistance
-                . '<br>';
+        $markup = '<ul>';
+        foreach ($this->getStatistics() as $statistics) {
+            $markup.= '<li>' . implode(" ", $statistics) . '</li>';
         }
+        $markup.= '</ul>';
 
         return $markup;
     }

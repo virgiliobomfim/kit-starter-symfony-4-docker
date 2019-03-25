@@ -6,10 +6,10 @@ I've used to build and why I chose them. Then I'll show how to use it.
 ## The Project
 
 This project intention is to showcase a bit of my talents building a modern
-PHP web application. The focus here is the software architecture.
+PHP web application. It focuses on the backend development.
 
-Some aspects of the project will be poorly handled intentionaly such as the
-views. They're here just to make the whole thing work.
+I tried to apply what I learned from reading the books such as*Head First
+Design Patterns* and *Clean Code*, but also from my personal experience.
 
 ## Tools
 
@@ -36,11 +36,10 @@ https://medium.com/@romaricp/the-perfect-kit-starter-for-a-symfony-4-project-wit
 
 It was as simple as `git clone`, `docker-compose build` and `docker-compose up -d`
 
-
 ## Usage
 
 Run from the project root `docker-compose build`, `docker-compose up -d` and
-browse to http://localhost
+browse to `http://localhost`.
 
 Use the corresponding links for the Poker Chance Calculator and Phrase Analyser
 tests.
@@ -62,8 +61,25 @@ of statistics.
 
 Remember the input may not be over 255 chars long.
 
+In this test I felt like I should have used a Binary Tree or some other better
+data structure than just a plain array. But I could not figure out in time. So
+I made sure the code was as flexible as possible to improve this once I find
+the solution.
+
 ## Unit Testing
 
-The unit tests focused on the upper level classes as I was very busy this week.
-On a normal situation I'd go for 80% coverage. To run them just execute the
-Symfony binary from the project root: `./bin/phpunit`
+To run them, execute Symfony's binary from the project root: `./bin/phpunit`.
+
+You should see an output like the following:
+```
+dev@70e569b52a72:/home/wwwroot/sf4$ bin/phpunit
+#!/usr/bin/env php
+PHPUnit 6.5.14 by Sebastian Bergmann and contributors.
+
+Testing Project Test Suite
+............................                                      28 / 28 (100%)
+
+Time: 88 ms, Memory: 6.00MB
+
+OK (28 tests, 55 assertions)
+```
