@@ -2,23 +2,99 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Routing\RouterInterface;
+
+use App\PhraseAnalyser\ManagerInterface;
 
 class PhraseAnalyserController
 {
-    public function __construct(RouterInterface $router)
-    {
+    const PHRASE = 'phrase';
+    /**
+     * @var Request
+     */
+    private $request;
+
+    /**
+     * @var ManagerInterface
+     */
+    private $manager;
+
+    public function __construct(
+        RouterInterface $router,
+        ManagerInterface $manager
+    ) {
         $this->router = $router;
+        $this->manager = $manager;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $this->setRequest($request);
+
         $indexUrl = $this->router->generate('index');
-        $pokerCalculatorUrl = $this->router->generate('poker_chance_calculator');
 
         return new Response(
-            '<html><body><ul><li><a href="'.$indexUrl.'">Index</a></li><li><a href="'.$pokerCalculatorUrl.'">Poker Chance Calculator</a></li></ul></body></html>'
+            '<html><body><ul>'
+                .'<li><a href="' . $this->getIndexUrl() . '">Index</a></li>'
+                .'<form>'
+                    .'<label>Input Phrase: <input name="phrase" type="text"'
+                        .' value="' . $this->getPhrase() . '"></label>'
+                    .'<button type="submit">Go!</button>'
+                .'</form>'
+                . $this->getStatisticsMarkup()
+            .'</ul></body></html>'
         );
+    }
+
+    private function getStatisticsMarkup() : string
+    {
+        $statistics = $this->getStatistics();
+        $markup = '';
+        foreach ($this->getStatistics() as $char => $statistics) {
+            $before = null;
+            if (isset($statistics['before'])) {
+                $before = ' before: ' . implode(", ", $statistics['before']);
+            }
+            $after = null;
+            if (isset($statistics['after'])) {
+                $after = ' after: ' . implode(", ", $statistics['after']);
+            }
+            $maxDistance = null;
+            if (isset($statistics['max_distance'])) {
+                $maxDistance = ' max-distance: ' . $statistics['max_distance'];
+            }
+            $markup.= $char . ': ' . $statistics['occurrences']
+                . $before
+                . $after
+                . $maxDistance
+                . '<br>';
+        }
+
+        return $markup;
+    }
+
+    private function getStatistics() : array
+    {
+        if ($this->getPhrase()) {
+            return $this->manager->getStatistics($this->getPhrase());
+        }
+
+        return [];
+    }
+
+    private function getIndexUrl() : string
+    {
+        return $this->router->generate('index');
+    }
+
+    private function setRequest(Request $request) : void
+    {
+        $this->request = $request;
+    }
+
+    private function getPhrase() : ?string
+    {
+        return $this->request->get(self::PHRASE, null);
     }
 }

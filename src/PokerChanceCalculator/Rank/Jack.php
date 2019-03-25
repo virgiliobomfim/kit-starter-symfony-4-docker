@@ -4,7 +4,7 @@ namespace App\PokerChanceCalculator\Rank;
 
 use App\PokerChanceCalculator\RankInterface;
 
-class Joker implements RankInterface
+class Jack implements RankInterface
 {
     public function __toString()
     {

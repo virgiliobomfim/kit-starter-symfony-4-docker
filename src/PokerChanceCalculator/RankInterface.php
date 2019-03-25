@@ -14,7 +14,7 @@ interface RankInterface
     const EIGHT = '8';
     const NINE = '9';
     const TEN = '10';
-    const JOKER = 'J';
+    const JACK = 'J';
     const QUEEN = 'Q';
     const KING = 'K';
 

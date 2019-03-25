@@ -15,6 +15,7 @@ class Provider implements ProviderInterface
     {
         $this->sources = $sources;
     }
+
     public function hasData() : bool
     {
         foreach ($this->sources as $source) {

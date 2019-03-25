@@ -50,7 +50,7 @@ services:
                 - '@App\PokerChanceCalculator\Rank\Eight'
                 - '@App\PokerChanceCalculator\Rank\Nine'
                 - '@App\PokerChanceCalculator\Rank\Ten'
-                - '@App\PokerChanceCalculator\Rank\Joker'
+                - '@App\PokerChanceCalculator\Rank\Jack'
                 - '@App\PokerChanceCalculator\Rank\Queen'
                 - '@App\PokerChanceCalculator\Rank\King'
     App\PokerChanceCalculator\Rank\Builder:
@@ -66,7 +66,7 @@ services:
                 !php/const App\PokerChanceCalculator\RankInterface::EIGHT: '@App\PokerChanceCalculator\Rank\Eight'
                 !php/const App\PokerChanceCalculator\RankInterface::NINE: '@App\PokerChanceCalculator\Rank\Nine'
                 !php/const App\PokerChanceCalculator\RankInterface::TEN: '@App\PokerChanceCalculator\Rank\Ten'
-                !php/const App\PokerChanceCalculator\RankInterface::JOKER: '@App\PokerChanceCalculator\Rank\Joker'
+                !php/const App\PokerChanceCalculator\RankInterface::JACK: '@App\PokerChanceCalculator\Rank\Jack'
                 !php/const App\PokerChanceCalculator\RankInterface::QUEEN: '@App\PokerChanceCalculator\Rank\Queen'
                 !php/const App\PokerChanceCalculator\RankInterface::KING: '@App\PokerChanceCalculator\Rank\King'
     App\PokerChanceCalculator\Suit\Builder:
@@ -76,3 +76,11 @@ services:
                 !php/const App\PokerChanceCalculator\SuitInterface::DIAMONDS: '@App\PokerChanceCalculator\Suit\Diamonds'
                 !php/const App\PokerChanceCalculator\SuitInterface::HEARTS: '@App\PokerChanceCalculator\Suit\Hearts'
                 !php/const App\PokerChanceCalculator\SuitInterface::SPADES: '@App\PokerChanceCalculator\Suit\Spades'
+    App\PhraseAnalyser\Statistics\Provider:
+        arguments:
+            - '@App\PhraseAnalyser\Statistics\CharOccurrences'
+            - '@App\PhraseAnalyser\Statistics\CharSiblings'
+            - '@App\PhraseAnalyser\Statistics\MaxDistanceBetweenChars'
+    App\PhraseAnalyser\Manager:
+        arguments:
+            $statisticsProvider: '@App\PhraseAnalyser\Statistics\Provider'
