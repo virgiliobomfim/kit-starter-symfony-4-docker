@@ -20,7 +20,6 @@ class Provider implements ProviderInterface
 
         foreach ($this->providers as $provider) {
             $statistics = array_merge_recursive($statistics, $provider->get($phrase));
-
         }
 
         return $statistics;
